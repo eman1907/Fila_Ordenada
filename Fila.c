@@ -1,6 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h> 
-#include "fila.h" 
+#include "Fila.h" 
 
 Fila* fila_cria(){ 
 	Fila* f = malloc(sizeof(Fila));
@@ -13,11 +13,10 @@ Fila* fila_cria(){
 
 void fila_insere(Fila* f, int v){ 
 	FilaNo* n = malloc(sizeof(FilaNo)); 
-	if (n == NULL) 
-		exit(1);
+	if (n == NULL) 	exit(1);
 		 n->idade = v; 
 		 n->prox = NULL;
-		  n->ant = f->ult; 
+		 n->ant = f->ult; 
 
 	if (f->ult != NULL){ 
 		f->ult->prox = n; 
@@ -28,9 +27,73 @@ void fila_insere(Fila* f, int v){
 
 } 
 
+int verifica_ordem_certa(Fila *f){ 
+	int ok = 1;
+	FilaNo* p = f->prim;
+	int x = p->idade;
+	for (p; p != NULL; p = p->prox){
+		if (x < p->idade){
+			ok = 0;
+			break;
+		}
+		x = p->idade; 
+	} 
+	return ok;
+} 
+
+int verifica_ordem_errada(Fila *f){ 
+	int ok = 1;
+	FilaNo* p = f->prim;
+	int x = p->idade;
+	for (p; p != NULL; p = p->prox){
+		if (x > p->idade){
+			ok = 0;
+			break;
+		}
+		x = p->idade; 
+	} 
+	return ok;
+} 
+
+void inverte_fila(Fila* f){
+	if (f->prim != NULL && f->prim->prox != NULL){
+		
+		FilaNo* n = f->prim;
+		FilaNo* n2 = NULL;
+
+		while(n != NULL){
+			n2 = n->prox;
+			n->ant = n->prox;
+			n->prox = n2;
+			n = n->ant;
+		}
+
+		n2 = f->prim;
+		f->prim = f->ult;
+		f->ult = n2;
+	}
+}
+
 
 void fila_ordena(Fila* f){ 
-	(...) 
+	if (f->prim != NULL && f->prim->prox != NULL){
+		int ok = 1;
+		while(ok){
+			ok = 0;
+			FilaNo *n = f->prim;
+
+		while(n->prox != NULL){
+				if (n->idade < n->prox->idade){
+					int temp = n->idade;
+					n->idade = n->prox->idade;
+					n->prox->idade = temp;
+
+					ok = 1;
+				} 
+				n = n->prox;
+			} 
+		}
+	}
 } 
 
 
