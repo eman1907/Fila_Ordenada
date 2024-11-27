@@ -27,7 +27,7 @@ int main(){
 		fila_insere(f, idade); 
 	}
 	
-	if (!verifica_ordem_certa(f) && verifica_ordem_errada(f)) {fila_ordena(f);} 
+	if (!verifica_ordem_certa(f) && !verifica_ordem_errada(f)) {fila_ordena(f);} 
 	else if (verifica_ordem_errada(f)) {inverte_fila(f);} 
 	
 
