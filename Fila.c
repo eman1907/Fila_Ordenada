@@ -62,7 +62,7 @@ void inverte_fila(Fila* f){
 		FilaNo* n2 = NULL;
 
 		while(n != NULL){
-			n2 = n->prox;
+			n2 = n->ant;
 			n->ant = n->prox;
 			n->prox = n2;
 			n = n->ant;
