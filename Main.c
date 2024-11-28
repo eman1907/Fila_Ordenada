@@ -12,7 +12,7 @@ int main(){
 		return 1;
 	} 
 
-
+	printf("Digite a idade dos indivíduos presentes na fila e 0 para finalizar:\n");
 	int id;
 	while(scanf("%d" , &id), id != 0){ 
 		fprintf(arq_entrada, "%d\n" , id);  
@@ -30,7 +30,7 @@ int main(){
 	if (!verifica_ordem_certa(f) && !verifica_ordem_errada(f)) {fila_ordena(f);} 
 	else if (verifica_ordem_errada(f)) {inverte_fila(f);} 
 	
-
+	printf("A ordem do atendimento será:\n");
 	while(f != NULL){ 
 		printf("%d " , fila_remove(f)); 
 	} 
