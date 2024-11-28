@@ -43,6 +43,10 @@ os ponteiros ant e prox de cada elemnto troquem de posição e ao fim da funça�
 ponteiros prim e ult de posição fazendo com que a lista mude a ordem estabelecida anteriormente */ 
 
 int fila_remove(Fila* f); 
+/* remove o primeiro elemnto da lista agora disposta na ordem correta, imprime dentro da main e
+repete o processo até que a fila esteja vazia a fim de apresentar a ordem de atendimento 
+dentre as idades escolhidas */
 
 void fila_libera(Fila *f);
+// libera o espaço alocado da fila ultilizada no programa 
 
