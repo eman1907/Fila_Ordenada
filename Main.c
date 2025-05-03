@@ -30,9 +30,9 @@ int main(){
 		fila_insere(f, idade); 
 	}
 	
-	if (!verifica_ordem_certa(f) && !verifica_ordem_errada(f)) {fila_ordena(f);} 
-	else if (verifica_ordem_errada(f)) {inverte_fila(f);} 
-
+	if (verifica_ordem_errada(f)) inverte_fila(f);	
+	else if (!verifica_ordem_certa(f)) fila_ordena(f); 
+	
 	//imprime a fila disposta na ordem correta após análise 
 	printf("A ordem do atendimento será:\n");
 	while(f != NULL){ 
