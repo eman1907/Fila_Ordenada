@@ -39,7 +39,7 @@ de evitar o trabalho da função "fila_ordena", e nesse caso será chamada a fun
 void inverte_fila(Fila* f);
 /* é chamada caso "verifica_ordem_errada" retorne 1 e tem por funçao inverter completamente
 os elementos presentes na lista para que fiquem dispostos do maior para o menor, fazendo com que
-os ponteiros ant e prox de cada elemnto troquem de posição e ao fim da funçaõ também troca os 
+os ponteiros ant e prox de cada elemento troquem de posição e ao fim da funçaõ também troca os 
 ponteiros prim e ult de posição fazendo com que a lista mude a ordem estabelecida anteriormente */ 
 
 int fila_remove(Fila* f); 
