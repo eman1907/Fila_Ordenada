@@ -14,29 +14,24 @@ Fila* fila_cria(){
 void fila_insere(Fila* f, int v){ 
 	FilaNo* n = malloc(sizeof(FilaNo)); 
 	if (n == NULL) 	exit(1);
-		 n->idade = v; 
-		 n->prox = NULL;
-		 n->ant = f->ult; 
+	n->idade = v; 
+	n->ant = f->ult; 
+	n->prox = NULL;
 
-	if (f->ult != NULL){ 
-		f->ult->prox = n; 
-	} 
+	if (f->ult) f->ult->prox = n;  
 	else f->prim = n;
 
 	 f->ult = n; 
-
-} 
+}  
 
 int verifica_ordem_certa(Fila *f){ 
 	int ok = 1;
 	FilaNo* p = f->prim;
-	int x = p->idade;
-	for (p; p != NULL; p = p->prox){
-		if (x < p->idade){
+	for (p; p->prox != NULL; p = p->prox){
+		if (p->idade < p->prox->idade){
 			ok = 0;
 			break;
 		}
-		x = p->idade; 
 	} 
 	return ok;
 } 
@@ -44,13 +39,11 @@ int verifica_ordem_certa(Fila *f){
 int verifica_ordem_errada(Fila *f){ 
 	int ok = 1;
 	FilaNo* p = f->prim;
-	int x = p->idade;
-	for (p; p != NULL; p = p->prox){
-		if (x > p->idade){
+	for (p; p->prox != NULL; p = p->prox){
+		if (p->idade > p->prox->idade){
 			ok = 0;
 			break;
 		}
-		x = p->idade; 
 	} 
 	return ok;
 } 
@@ -74,26 +67,39 @@ void inverte_fila(Fila* f){
 	}
 }
 
+void troca_nos(Fila* f, FilaNo* a, FilaNo* b){
+	if(a->ant != NULL) a->ant->prox = b;
+	else f->prim = b;
+
+	if(b->prox != NULL) b->prox->ant = a;
+	else f->ult = a;
+
+	a->prox = b->prox;
+	b->ant = a->ant;
+
+	a->ant = b;
+	b->prox = a;
+}
+
 
 void fila_ordena(Fila* f){ 
-	if (f->prim != NULL && f->prim->prox != NULL){
-		int ok = 1;
-		while(ok){
-			ok = 0;
-			FilaNo *n = f->prim;
+	if (f->prim != NULL){
 
-		while(n->prox != NULL){
-				if (n->idade < n->prox->idade){
-					int temp = n->idade;
-					n->idade = n->prox->idade;
-					n->prox->idade = temp;
+		int trocou;
+		do{
+			trocou = 0;
+			FilaNo* n = f->prim;
 
-					ok = 1;
-				} 
-				n = n->prox;
-			} 
+			while(n != NULL && n->prox != NULL){
+				if (n->idade < n->prox->idade){ 
+					troca_nos(f, n, n->prox);
+					trocou = 1;
+				}
+				else n = n->prox;
+			}
 		}
-	}
+		while(trocou); 
+	} 
 } 
 
 
@@ -106,9 +112,7 @@ int fila_remove(Fila* f){
 	int i = n->idade; 
 	f->prim = n->prox; 
 
-	if (f->prim != NULL){ 
-		f->prim->ant = NULL; 
-	} 
+	if (f->prim) f->prim->ant = NULL; 
 	else f->ult = NULL; 
 	
 	free(n); 
