@@ -4,6 +4,8 @@
 
 int main(){  
 
+	printf("Bem-vindo a nossa fila de atendimento virtual!\n");
+
 	Fila* f = fila_cria(); 
 
 	FILE* arq_entrada = fopen("Cliente.txt" , "w"); //cria uma arquivo de escrita 
@@ -12,36 +14,41 @@ int main(){
 		return 1;
 	} 
 
-	printf("Digite a idade dos indivíduos presentes na fila e 0 para finalizar:\n");
+	printf("Digite a idade dos individuos presentes na fila e 0 para finalizar:\n"); 
 	int id;
 	/* lê as idades fornecidas pelo usuário e adiciona ao arquivo aberto na ordem que aparecem
-	e ultiliza 0 como critério de parada */
+	e ultiliza 0 como critério de parada */ 
 	while(scanf("%d" , &id), id != 0){ 		
 		fprintf(arq_entrada, "%d\n" , id);  	
 	} 						
 
 	fclose(arq_entrada); //fecha o arquivo de escrita 
+	  
 
 	FILE* arq = fopen("Cliente.txt" , "r"); //abre o arquivo anterior para leitura
+
+	if (arq == NULL){
+		printf("Arquivo indisponível!\n");
+		exit (1);  
+	} 
 
 	int idade; 
 	//lê as idades presentes no arquivo e adicona na fila duplamente encadeada
 	while(fscanf(arq, "%d" , &idade) != EOF){ 
 		fila_insere(f, idade); 
 	}
-	
+
+	fclose(arq); //fecha o arquivo de leitura 
+		
 	if (verifica_ordem_errada(f)) inverte_fila(f);	
 	else if (!verifica_ordem_certa(f)) fila_ordena(f); 
-	
+
 	//imprime a fila disposta na ordem correta após análise 
-	printf("A ordem do atendimento será:\n");
+	printf("A ordem do atendimento sera:\n");
 	while(f != NULL){ 
 		printf("%d " , fila_remove(f)); 
 	} 
-
-	fclose(arq); //fecha o arquivo de leitura 
 	
 	fila_libera(f); 
-
 	return 0;
  } 
